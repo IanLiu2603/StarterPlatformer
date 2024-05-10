@@ -2,11 +2,10 @@ class Platformer extends Phaser.Scene {
     constructor() {
         super("platformerScene");
     }
-
     init() {
         // variables and settings
-        this.ACCELERATION = 500;
-        this.DRAG = 700;    // DRAG < ACCELERATION = icy slide
+        this.ACCELERATION = 300;
+        this.DRAG = 500;    // DRAG < ACCELERATION = icy slide
         this.physics.world.gravity.y = 1500;
         this.JUMP_VELOCITY = -900;
     }
@@ -25,7 +24,12 @@ class Platformer extends Phaser.Scene {
         this.groundLayer = this.map.createLayer("Ground-n-Platforms", this.tileset, 0, 0);
         this.groundLayer.setScale(2.0);
 
+        this.waterLayer = this.map.createLayer("Water", this.tileset, 0, 0);
+        this.waterLayer.setScale(2.0);
         // Make it collidable
+        this.waterLayer.setCollisionByProperty({
+            collides: true
+        })
         this.groundLayer.setCollisionByProperty({
             collides: true
         });
@@ -36,6 +40,7 @@ class Platformer extends Phaser.Scene {
 
         // Enable collision handling
         this.physics.add.collider(my.sprite.player, this.groundLayer);
+        this.physics.add.collider(my.sprite.player, this.waterLayer, this.reset);
 
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
@@ -47,23 +52,25 @@ class Platformer extends Phaser.Scene {
         }, this);
 
     }
+    
 
     update() {
         if(cursors.left.isDown) {
             // TODO: have the player accelerate to the left
-            
+            my.sprite.player.body.setAccelerationX(-this.ACCELERATION); 
             my.sprite.player.resetFlip();
             my.sprite.player.anims.play('walk', true);
 
         } else if(cursors.right.isDown) {
             // TODO: have the player accelerate to the right
-
+            my.sprite.player.body.setAccelerationX(this.ACCELERATION);
             my.sprite.player.setFlip(true, false);
             my.sprite.player.anims.play('walk', true);
 
         } else {
             // TODO: set acceleration to 0 and have DRAG take over
-
+            my.sprite.player.body.setAccelerationX(0);
+            my.sprite.player.body.setDragX(this.DRAG);
             my.sprite.player.anims.play('idle');
         }
 
@@ -74,7 +81,13 @@ class Platformer extends Phaser.Scene {
         }
         if(my.sprite.player.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
             // TODO: set a Y velocity to have the player "jump" upwards (negative Y direction)
+            my.sprite.player.body.setVelocityY(this.JUMP_VELOCITY);
 
         }
     }
+    reset(){
+        my.sprite.player.x  =game.config.width/4;
+        my.sprite.player.y = game.config.height/2;
+    }
+    
 }
