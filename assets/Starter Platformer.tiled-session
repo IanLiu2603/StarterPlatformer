@@ -3,10 +3,25 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "platformer-level-1.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
+        "": {
+            "scaleInEditor": 1
+        },
+        "platformer-level-1.tmx": {
+            "scale": 0.7496,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 639.6744930629669,
+                "y": 232.79082177161152
+            }
+        },
+        "platformer-level-1.tmx#kenny_tilemap_packed": {
+            "scaleInDock": 1
+        }
     },
     "last.exportedFilePath": "/Users/ianliu/CMPM 120/StarterPlatformer/assets",
     "last.imagePath": "/Users/ianliu/CMPM 120/StarterPlatformer/assets",
@@ -16,10 +31,12 @@
     "map.tileWidth": 18,
     "map.width": 40,
     "openFiles": [
+        "platformer-level-1.tmx"
     ],
     "project": "Starter Platformer.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "platformer-level-1.tmx"
     ],
     "tileset.embedInMap": true,
     "tileset.tileSize": {
